@@ -62,7 +62,7 @@ public class GenreRepositoryImpl implements GenreRepository {
 	}
 
 	@Override
-	public void save(Genre genre) {
+	public Genre save(Genre genre) {
 		
 		if (genre.getId()==null) {
 			String sql = "insert into Genres (id, libelle) values (?, ?)";
@@ -79,6 +79,8 @@ public class GenreRepositoryImpl implements GenreRepository {
 			String sql = "update Genres set libelle=? where id=?";
 			jdbcTemplate.update(sql, genre.getTitre(), genre.getId());
 		}
+
+        return genre;
 		
 	}
 

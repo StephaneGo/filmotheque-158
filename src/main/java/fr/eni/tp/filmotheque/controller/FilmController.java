@@ -1,6 +1,7 @@
 package fr.eni.tp.filmotheque.controller;
 
 import fr.eni.tp.filmotheque.bll.FilmService;
+import fr.eni.tp.filmotheque.bll.GenreService;
 import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.bo.Participant;
@@ -24,9 +25,12 @@ import java.util.List;
 public class FilmController {
 
     private FilmService filmService;
+    private GenreService genreService;
 
-    public FilmController(FilmService filmService) {
+    public FilmController(FilmService filmService, GenreService genreService) {
+
         this.filmService = filmService;
+        this.genreService = genreService;
     }
 
 
@@ -78,7 +82,7 @@ public class FilmController {
 
         Film film = new Film();
         BeanUtils.copyProperties(filmDto, film);
-        Genre genre = filmService.consulterGenreParId(filmDto.getGenreId());
+        Genre genre = genreService.findGenreById(filmDto.getGenreId());
         //Genre genre = new Genre(filmDto.getGenreId());
         film.setGenre(genre);
         Participant realisateur = filmService.consulterParticipantParId(filmDto.getRealisateurId());

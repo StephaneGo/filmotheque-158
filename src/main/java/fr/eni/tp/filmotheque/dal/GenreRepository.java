@@ -12,7 +12,7 @@ public interface GenreRepository {
     Genre findGenreById(int id);
 
     /* ajout ou modification d'un genre */
-    void save(Genre genre);
+    Genre save(Genre genre);
 
     void delete(int idGenre);
 }

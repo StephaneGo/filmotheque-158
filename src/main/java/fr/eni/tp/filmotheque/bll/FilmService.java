@@ -19,7 +19,4 @@ public interface FilmService {
 
     void creerFilm(Film film);
 
-    /* Gestion des genres */
-    List<Genre> consulterGenres();
-    Genre consulterGenreParId(long id);
 }

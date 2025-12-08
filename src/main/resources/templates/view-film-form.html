@@ -63,7 +63,7 @@
             <li>
                 <label for="inputGenre">Genre : </label>
                 <select id="inputGenre" th:field="*{genreId}">
-                    <option data-th-each="genre : ${@filmService.consulterGenres}" data-th-value="${genre.id}" data-th-text="${genre.titre}"></option>
+                    <option data-th-each="genre : ${@genreService.findAllGenres}" data-th-value="${genre.id}" data-th-text="${genre.titre}"></option>
                 </select>
                 <ul style="color:red">
                     <li th:each="erreur: ${#fields.errors('genreId')}" th:text="${erreur}"></li>

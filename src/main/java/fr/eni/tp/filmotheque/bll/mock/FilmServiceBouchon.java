@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service("filmService")
 public class FilmServiceBouchon implements FilmService {
+
 	// Attributs statiques pour gérer les valeurs à afficher et simuler les données
 	// en base
 	private static List<Film> lstFilms = new ArrayList<>();
@@ -45,20 +46,20 @@ public class FilmServiceBouchon implements FilmService {
 		return film;
 	}
 
-	@Override
-    public List<Genre> consulterGenres() {
-		return lstGenres;
-	}
+//	@Override
+//    public List<Genre> consulterGenres() {
+//		return lstGenres;
+//	}
 
 	@Override
     public List<Participant> consulterParticipants() {
 		return lstParticipants;
 	}
 
-	@Override
-    public Genre consulterGenreParId(long id) {
-		return lstGenres.stream().filter(item -> item.getId() == id).findAny().orElse(null);
-	}
+//	@Override
+//    public Genre consulterGenreParId(long id) {
+//		return lstGenres.stream().filter(item -> item.getId() == id).findAny().orElse(null);
+//	}
 
 	/**
 	 * @return participant si id correspond
