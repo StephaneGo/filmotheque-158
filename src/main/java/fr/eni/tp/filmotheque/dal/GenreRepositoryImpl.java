@@ -53,7 +53,7 @@ public class GenreRepositoryImpl implements GenreRepository {
 
 		@Override
 		public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new Genre(rs.getLong("id"), rs.getString("libelle"));
+			return new Genre(rs.getInt("id"), rs.getString("libelle"));
 
 		}
 

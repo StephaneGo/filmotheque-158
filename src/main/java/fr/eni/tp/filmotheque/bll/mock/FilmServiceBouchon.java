@@ -84,7 +84,7 @@ public class FilmServiceBouchon implements FilmService {
 	public void simulationCoucheDALetDB() {
 		// Création de la liste des genres
 		for (int index = 0; index < genres.length; index++) {
-			lstGenres.add(new Genre((long)index + 1, genres[index]));
+			lstGenres.add(new Genre(index + 1, genres[index]));
 		}
 
 		// Création de la liste des participants aux films (acteurs et réalisateurs)

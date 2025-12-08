@@ -54,7 +54,7 @@ public class GenreRepositoryImplTest {
 	@DisplayName("Test ajout Genre")
 	public void testAjoutGenreCasNominal() {
 		//Arrange
-		Genre genre = new Genre(99l, "nouveau");
+		Genre genre = new Genre(99, "nouveau");
 		
 		//Act 
 		genreRepository.save(genre);
