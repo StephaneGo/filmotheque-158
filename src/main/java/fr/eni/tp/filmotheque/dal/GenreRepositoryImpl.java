@@ -60,7 +60,7 @@ public class GenreRepositoryImpl implements GenreRepository {
 	}
 
 	@Override
-	public Genre save(Genre genre) {
+	public void save(Genre genre) {
 		
 			String sql = "insert into Genres (id, libelle) values (?, ?)";
 
