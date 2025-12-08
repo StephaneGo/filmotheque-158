@@ -68,7 +68,7 @@ create table participants (
 );
 
 create table films(
-	id serial primary key,
+	id not null primary key identity,
 	titre varchar(50) not null,
 	annee int not null,
 	duree int not null,
