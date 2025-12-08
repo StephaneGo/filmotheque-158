@@ -27,7 +27,8 @@ public class GenreRepositoryImplTest {
 
 	@BeforeEach
 	public void initTest() {
-		jdbcTemplate.execute("truncate table genres");		
+		//jdbcTemplate.execute("truncate table genres");
+        jdbcTemplate.update("delete from Genres");
 		jdbcTemplate.update("insert into genres ( id, libelle) values (1, 'Animation')");
 		jdbcTemplate.update("insert into genres ( id, libelle) values (2, 'Aventure')");
 		jdbcTemplate.update("insert into genres ( id, libelle) values (3, 'Comédie')");
