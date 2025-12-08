@@ -14,5 +14,8 @@ public interface GenreRepository {
     /* ajout ou modification d'un genre */
     Genre save(Genre genre);
 
+    /* modification d'un genre */
+    void update(Genre genre);
+
     void delete(int idGenre);
 }

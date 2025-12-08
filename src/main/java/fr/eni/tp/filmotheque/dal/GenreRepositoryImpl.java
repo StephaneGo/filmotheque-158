@@ -10,9 +10,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 
@@ -21,6 +18,7 @@ import org.springframework.stereotype.Repository;
 public class GenreRepositoryImpl implements GenreRepository {
 
 	private JdbcTemplate jdbcTemplate;
+
 
 	public GenreRepositoryImpl(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -64,25 +62,19 @@ public class GenreRepositoryImpl implements GenreRepository {
 	@Override
 	public Genre save(Genre genre) {
 		
-		if (genre.getId()==null) {
 			String sql = "insert into Genres (id, libelle) values (?, ?)";
-			KeyHolder keyHolder = new GeneratedKeyHolder();
-			
-			MapSqlParameterSource parameters = new MapSqlParameterSource();
-            parameters.addValue("id", genre.getId());
-			parameters.addValue("libelle", genre.getTitre());
-			
-			jdbcTemplate.update(sql, parameters  );
 
-			
-		}else {
-			String sql = "update Genres set libelle=? where id=?";
-			jdbcTemplate.update(sql, genre.getTitre(), genre.getId());
-		}
+			jdbcTemplate.update(sql, genre.getId(), genre.getTitre() );
 
-        return genre;
-		
 	}
+
+    @Override
+    public void update(Genre genre) {
+
+            String sql = "update Genres set libelle=? where id=?";
+            jdbcTemplate.update(sql, genre.getTitre(), genre.getId());
+
+    }
 
 	@Override
 	public void delete(int idGenre) {
