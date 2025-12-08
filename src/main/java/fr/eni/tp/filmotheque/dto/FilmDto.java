@@ -22,8 +22,8 @@ public class FilmDto implements Serializable {
     @Size(min = 1, max = 100)
     private String titre;
     @Min(1895)
-//	private int annee;
-//    @Min(0)
+	private int annee;
+    @Min(0)
 	private int duree;
 	private String synopsis;
 
