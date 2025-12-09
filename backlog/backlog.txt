@@ -107,7 +107,7 @@ alter table acteurs add constraint fk_acteurs_participantId foreign key (partici
 
 4.5 DAL : Ajout d'un nouveau film + test scénario nominal
 
-4.6 BLL : Ajout d'un nouveau film + test scénario nominal
+4.6 BLL : Ajout d'un nouveau film (en utilisant un NamedJdbcTemplate) + test scénario nominal
 
 [OPTIONNEl ITEREATION 5 ]
 

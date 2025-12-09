@@ -2,6 +2,7 @@ package fr.eni.tp.filmotheque.dal;
 
 import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
+import fr.eni.tp.filmotheque.exception.FilmNotFound;
 import fr.eni.tp.filmotheque.exception.GenreNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,6 +54,35 @@ public class FilmRepositoryImplTest {
         assertEquals("Some like it hot", films.get(0).getTitre());
 	
 	}
+
+    @Test
+    @DisplayName("Test findFilmById cas nominal")
+    public void testFindFilmByIdCasNominal() {
+        //Arrange
+        Integer id = jdbcTemplate.queryForObject("select id from films where titre = ?", Integer.class, "Some like it hot");
+
+        //Act
+        Film film = filmRepository.findFilmById(id);
+
+        //Assert
+        assertNotNull(film);
+        assertEquals("Some like it hot", film.getTitre());
+        assertEquals(3, film.getActeurs().size());
+
+    }
+
+
+    @Test
+    @DisplayName("Test findFilmById cas film non trouvé")
+    public void testFindFilmByIdCasFilmNonTrouve() {
+        //Arrange
+        Integer id = 9999;
+
+        //Act
+        assertThrows(FilmNotFound.class, ()->filmRepository.findFilmById(id));
+
+    }
+
 
 	/*
 	@Test

@@ -24,3 +24,8 @@ INSERT INTO PARTICIPANTS (prenom, nom) VALUES ('Tony', 'Curtis');
 INSERT INTO PARTICIPANTS (prenom, nom) VALUES ('Shirley', 'Mac Laine');
 INSERT INTO PARTICIPANTS (prenom, nom) VALUES ('Pierre', 'Coffin');
 INSERT INTO PARTICIPANTS (prenom, nom) VALUES ('Quentin', 'Dupieux');
+insert into films ( titre, annee, duree, synopsis, genreid, realisateurid) values ('Some like it hot', 1959, 120,'Lorsque deux musiciens sont témoins d''un succès populaire, ils fuient l''État dans un groupe entièrement féminin, déguisés en femmes, mais d''autres complications s''ensuivent'
+    ,3, (select id from participants where nom = 'Wilder'));
+insert into acteurs (filmid, participantid) values ((select id from films where titre = 'Some like it hot'), (select id from participants where nom = 'Monroe'))
+insert into acteurs (filmid, participantid) values ((select id from films where titre = 'Some like it hot'), (select id from participants where nom = 'Lemmon'))
+insert into acteurs (filmid, participantid) values ((select id from films where titre = 'Some like it hot'), (select id from participants where nom = 'Curtis'))

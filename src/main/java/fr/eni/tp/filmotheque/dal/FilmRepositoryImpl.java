@@ -12,6 +12,7 @@ import fr.eni.tp.filmotheque.bo.Avis;
 import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.bo.Participant;
+import fr.eni.tp.filmotheque.exception.FilmNotFound;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -74,8 +75,22 @@ public class FilmRepositoryImpl implements FilmRepository {
 		}
 
 	}
-	
+
+    public List<Participant> findActeursByFilm(int idFilm){
+        String sql = "select p.id as id, nom, prenom "
+                + "from participants p inner join acteurs a "
+                + " on p.id = a.participantid and a.filmid = ?";
+
+        List<Participant> acteurs = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Participant>(Participant.class), idFilm);
+
+        return acteurs;
+    }
+
 	@Override
+    /*
+        Récupération de tous les films.
+        Les acteurs ne sont pas chargés (Lazy loading)
+     */
 	public List<Film> findAllFilms() {
 
 		List<Film> films = jdbcTemplate.query(SELECT_FILM, new FilmRowMapper());
@@ -87,20 +102,21 @@ public class FilmRepositoryImpl implements FilmRepository {
 	
 
 	@Override
-	public Optional<Film> findFilmById(int idFilm) {
+	public Film findFilmById(Integer idFilm) {
 		String sql = SELECT_FILM + " where f.id=?";
 		
-		Optional<Film> optFilm  ;
+		Film film  =null;
 		
 		try {
-			Film film = jdbcTemplate.queryForObject(sql, new FilmRowMapper(), idFilm);
-			optFilm = Optional.of(film);
+			film = jdbcTemplate.queryForObject(sql, new FilmRowMapper(), idFilm);
+            List<Participant> acteurs = findActeursByFilm(idFilm);
+            film.setActeurs(acteurs);
+
 		}catch(EmptyResultDataAccessException exc) {
-			optFilm = Optional.empty();
+			throw new FilmNotFound(idFilm);
 		}
 
-		
-		return optFilm;
+		return film;
 	}
 
 	@Override	

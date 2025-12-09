@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface FilmRepository {
 	
 	List<Film> findAllFilms();
-	Optional<Film> findFilmById(int idFilm);
+	Film findFilmById(Integer idFilm);
 	void saveFilm(Film film);
 
 //	List<Participant> findActeursByFilm(int idFilm);

@@ -9,7 +9,7 @@ import java.util.List;
 public interface FilmService {
     List<Film> consulterFilms();
 
-    Film consulterFilmParId(long id);
+    Film consulterFilmParId(Integer id);
 
 
     List<Participant> consulterParticipants();

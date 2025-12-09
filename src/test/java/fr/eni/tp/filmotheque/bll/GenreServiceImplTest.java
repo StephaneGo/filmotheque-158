@@ -27,7 +27,7 @@ public class GenreServiceImplTest {
 
 	@BeforeEach
 	public void initTest() {
-		jdbcTemplate.execute("truncate table genres");		
+		jdbcTemplate.execute("delete from genres");
 		jdbcTemplate.update("insert into genres ( id, libelle) values (1, 'Animation')");
 		jdbcTemplate.update("insert into genres ( id, libelle) values (2, 'Aventure')");
 		jdbcTemplate.update("insert into genres ( id, libelle) values (3, 'Comédie')");

@@ -21,12 +21,13 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<Film> consulterFilms() {
-        return filmRepository.findAllFilms();
+        List<Film> films = filmRepository.findAllFilms();
+        return films;
     }
 
     @Override
-    public Film consulterFilmParId(long id) {
-        return null;
+    public Film consulterFilmParId(Integer id) {
+        return filmRepository.findFilmById(id);
     }
 
     @Override
