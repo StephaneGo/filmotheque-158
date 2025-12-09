@@ -1,7 +1,7 @@
-package fr.eni.tp.filmotheque.dal;
+package fr.eni.tp.filmotheque.bll;
 
 import fr.eni.tp.filmotheque.bo.Film;
-import fr.eni.tp.filmotheque.bo.Genre;
+import fr.eni.tp.filmotheque.dal.FilmRepository;
 import fr.eni.tp.filmotheque.exception.FilmNotFound;
 import fr.eni.tp.filmotheque.exception.GenreNotFoundException;
 import org.junit.jupiter.api.Assertions;
@@ -17,13 +17,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class FilmRepositoryImplTest {
+public class FilmServiceImplTest {
 
 	@Autowired
 	public JdbcTemplate jdbcTemplate;
 	
 	@Autowired
-	public FilmRepository filmRepository;
+	public FilmService filmService;
 	
 
 	@BeforeEach
@@ -46,7 +46,7 @@ public class FilmRepositoryImplTest {
 		//Arrange
 		
 		//Act 
-		List<Film> films = filmRepository.findAllFilms();
+		List<Film> films = filmService.consulterFilms();
 		
 		//Assert
 		assertNotNull(films);
@@ -62,7 +62,7 @@ public class FilmRepositoryImplTest {
         Integer id = jdbcTemplate.queryForObject("select id from films where titre = ?", Integer.class, "Some like it hot");
 
         //Act
-        Film film = filmRepository.findFilmById(id);
+        Film film = filmService.consulterFilmParId(id);
 
         //Assert
         assertNotNull(film);
@@ -79,8 +79,10 @@ public class FilmRepositoryImplTest {
         Integer id = 9999;
 
         //Act
-        assertThrows(FilmNotFound.class, ()->filmRepository.findFilmById(id));
+        assertThrows(FilmNotFound.class, ()->filmService.consulterFilmParId(id));
 
     }
+
+
 
 }
