@@ -13,7 +13,7 @@ public class Participant extends Personne {
 		super(nom, prenom);
 	}
 
-	public Participant(long id, String nom, String prenom) {
+	public Participant(Integer id, String nom, String prenom) {
 		super(id, nom, prenom);
 	}
 }

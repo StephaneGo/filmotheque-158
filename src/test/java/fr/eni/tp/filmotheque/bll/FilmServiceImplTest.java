@@ -1,6 +1,8 @@
 package fr.eni.tp.filmotheque.bll;
 
 import fr.eni.tp.filmotheque.bo.Film;
+import fr.eni.tp.filmotheque.bo.Genre;
+import fr.eni.tp.filmotheque.bo.Participant;
 import fr.eni.tp.filmotheque.dal.FilmRepository;
 import fr.eni.tp.filmotheque.exception.FilmNotFound;
 import fr.eni.tp.filmotheque.exception.GenreNotFoundException;
@@ -59,7 +61,7 @@ public class FilmServiceImplTest {
     @DisplayName("Test findFilmById cas nominal")
     public void testFindFilmByIdCasNominal() {
         //Arrange
-        Integer id = jdbcTemplate.queryForObject("select id from films where titre = ?", Integer.class, "Some like it hot");
+        Integer id = jdbcTemplate.queryForObject("select id from films where titre = 'Some like it hot'", Integer.class );
 
         //Act
         Film film = filmService.consulterFilmParId(id);
@@ -83,6 +85,34 @@ public class FilmServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("testAjoutFilmCasDroit")
+    public void testAjoutFilmCasDroit() {
+        Integer idBillyWilder = jdbcTemplate.queryForObject("select id from participants where nom = 'Wilder'", Integer.class);
+        Integer idMarylinMonroe = jdbcTemplate.queryForObject("select id from participants where nom = 'Monroe'", Integer.class);
 
+        Film film = new Film();
+        film.setTitre("Seven year itch");
+        film.setAnnee(1955);
+        film.setDuree(105);
+        film.setSynopsis("Un bon père de famille se retrouve célibataire pour un été quand une blonde ingénue très craquante vient occuper l'appartement voisin");
+        film.setGenre(new Genre(3, "Comedie"));
+        film.setRealisateur(new Participant(idBillyWilder, "Wilder", "Billy"));
+        Participant monroe = new Participant(idMarylinMonroe, "", "");
+        film.setActeurs(List.of(monroe));
+
+        //Act
+        filmService.creerFilm(film);
+
+        //Assert
+        Film newFilm = filmService.consulterFilmParId(film.getId());
+        assertNotNull(newFilm);
+        assertEquals(film, newFilm);
+        assertEquals(film.getTitre(), newFilm.getTitre());
+        assertEquals(film.getAnnee(), newFilm.getAnnee());
+        assertEquals(film.getDuree(), newFilm.getDuree());
+        assertEquals(film.getActeurs().size(), newFilm.getActeurs().size());
+        assertArrayEquals(film.getActeurs().toArray(), newFilm.getActeurs().toArray());
+    }
 
 }

@@ -42,6 +42,6 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public void creerFilm(Film film) {
-
+        filmRepository.saveFilm(film);
     }
 }
