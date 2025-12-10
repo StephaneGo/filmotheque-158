@@ -12,7 +12,10 @@ import fr.eni.tp.filmotheque.bo.Avis;
 import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.bo.Participant;
+import fr.eni.tp.filmotheque.controller.FilmController;
 import fr.eni.tp.filmotheque.exception.FilmNotFound;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -30,6 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 //@Primary
 public class FilmRepositoryImpl implements FilmRepository {
+
+    Logger logger = LoggerFactory.getLogger(FilmRepositoryImpl.class);
 
 	private static String SELECT_FILM = 
 			"select f.id as id, titre, annee, duree, "
@@ -54,6 +59,7 @@ public class FilmRepositoryImpl implements FilmRepository {
 
 		@Override
 		public Film mapRow(ResultSet rs, int rowNum) throws SQLException {
+            logger.debug("dans mapRow");
 			Film film = new Film();
 			film.setId(rs.getInt("id"));
 			film.setTitre(rs.getString("titre"));
@@ -116,6 +122,7 @@ public class FilmRepositoryImpl implements FilmRepository {
             film.setActeurs(acteurs);
 
 		}catch(EmptyResultDataAccessException exc) {
+            logger.info("Film {} non trouvé (EmptyResultDataAccessException)", idFilm);
 			throw new FilmNotFound(idFilm);
 		}
 

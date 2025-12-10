@@ -7,13 +7,13 @@ import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.bo.Participant;
 import fr.eni.tp.filmotheque.dto.FilmDto;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -24,6 +24,8 @@ import java.util.List;
 //@SessionAttributes("genresEnSession")
 public class FilmController {
 
+    Logger logger = LoggerFactory.getLogger(FilmController.class);
+
     private FilmService filmService;
     private GenreService genreService;
 
@@ -33,11 +35,23 @@ public class FilmController {
         this.genreService = genreService;
     }
 
+    @GetMapping({"/", "/accueil"})
+    public String accueil(){
+        return "accueil";
+    }
+
 
     @GetMapping("/films/detail")
     public String afficherUnFilm(@RequestParam(name="id") Integer identifiant, Model model) {
 
-        Film film = this.filmService.consulterFilmParId(identifiant);
+
+        Film film = null;
+        //try {
+            film = this.filmService.consulterFilmParId(identifiant);
+
+    /*}catch(FilmNotFound filmNotFound){
+            return "view-erreur";
+        }*/
         System.out.println(film);
 
         model.addAttribute("film", film);
@@ -47,14 +61,19 @@ public class FilmController {
 
     @GetMapping("/films")
     public String afficherFilms(Model model) {
+        logger.debug("debut afficherFilms -niveau debug");
+        logger.info("debut afficherFilms - niveau info");
+        logger.warn("debut afficherFilms - niveau warning");
+        logger.error("debut afficherFilms - niveau error");
 
         List<Film> films = this.filmService.consulterFilms();
         for (Film film : films) {
-            System.out.println(film);
+            //System.out.println(film);
+            logger.info("film : {}", film);
         }
 
         model.addAttribute("films", films);
-
+        logger.debug("fin afficherFilms - niveau debug");
         return "view-films";
     }
 

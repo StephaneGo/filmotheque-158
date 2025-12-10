@@ -6,6 +6,7 @@ import fr.eni.tp.filmotheque.dal.FilmRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film consulterFilmParId(Integer id) {
+
         return filmRepository.findFilmById(id);
     }
 
@@ -41,6 +43,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    @Transactional
     public void creerFilm(Film film) {
         filmRepository.saveFilm(film);
     }
