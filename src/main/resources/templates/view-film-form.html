@@ -73,7 +73,7 @@
             <li>
                 <label for="realisateur">Realisateur : </label>
                 <select id="realisateur" th:field="*{realisateurId}" size="10">
-                    <option data-th-each="realisateur : ${@filmService.consulterParticipants()}" data-th-value="${realisateur.id}" data-th-text="${realisateur?.nom + ' ' + realisateur?.prenom }"></option>
+                    <option data-th-each="realisateur : ${@participantService.consulterParticipants()}" data-th-value="${realisateur.id}" data-th-text="${realisateur?.nom + ' ' + realisateur?.prenom }"></option>
                 </select>
                 <ul style="color:red">
                     <li th:each="erreur: ${#fields.errors('realisateurId')}" th:text="${erreur}"></li>
@@ -83,7 +83,7 @@
             <li>
                 <label for="acteurs">Acteurs : </label>
                 <select id="acteurs" th:field="*{acteursIds}" multiple size="15">
-                    <option data-th-each="acteur : ${@filmService.consulterParticipants()}" data-th-value="${acteur.id}" data-th-text="${acteur?.nom + ' ' + acteur?.prenom }"></option>
+                    <option data-th-each="acteur : ${@participantService.consulterParticipants()}" data-th-value="${acteur.id}" data-th-text="${acteur?.nom + ' ' + acteur?.prenom }"></option>
                 </select>
                 <ul style="color:red">
                     <li th:each="erreur: ${#fields.errors('acteursIds')}" th:text="${erreur}"></li>
