@@ -35,6 +35,11 @@ public class FilmController {
         this.genreService = genreService;
     }
 
+    @GetMapping("/login")
+    public String login(Model modele) {
+
+        return "connexion";    }
+
     @GetMapping({"/", "/accueil"})
     public String accueil(){
         return "accueil";
