@@ -2,6 +2,7 @@ delete from acteurs;
 delete from films;
 delete from  genres;
 delete from  participants;
+delete from membres;
 insert into genres ( id, libelle) values (1, 'Action');
 insert into genres ( id, libelle) values (2, 'Animation');
 insert into genres ( id, libelle) values (3, 'Comédie');
@@ -31,3 +32,6 @@ insert into films ( titre, annee, duree, synopsis, genreid, realisateurid) value
 insert into acteurs (filmid, participantid) values ((select id from films where titre = 'Some like it hot'), 12)
 insert into acteurs (filmid, participantid) values ((select id from films where titre = 'Some like it hot'), 13)
 insert into acteurs (filmid, participantid) values ((select id from films where titre = 'Some like it hot'), 14)
+SET IDENTITY_INSERT PARTICIPANTS ON;
+insert into membres (id, prenom, nom, pseudo, motDePasse, admin) values (1, 'bob', 'OConnor','bob', '{bcrypt}$2a$10$Evy.bRFEL8iqpw81Yp2b8OrfJxeCCteHX57fVy2Bi/kzyk1.jqH1W', 1)
+SET IDENTITY_INSERT PARTICIPANTS OFF;
