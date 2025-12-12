@@ -44,8 +44,8 @@ public class GenreRepositoryImpl implements GenreRepository {
         Genre genre = null;
 		
 		try {
-			genre = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Genre.class), id);
-           // genre = jdbcTemplate.queryForObject(sql, new GenreRowMapper(), id);
+			//genre = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Genre.class), id);
+            genre = jdbcTemplate.queryForObject(sql, new GenreRowMapper(), id);
 		}catch(EmptyResultDataAccessException exc) {
 			throw new GenreNotFoundException(id);
 		}
