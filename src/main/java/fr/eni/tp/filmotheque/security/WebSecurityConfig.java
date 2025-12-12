@@ -20,7 +20,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/accueil", "/css/*", "/images/*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/films/creer").hasRole("ADMIN")
+                        .requestMatchers( "/films/creer").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())

@@ -109,10 +109,68 @@ alter table acteurs add constraint fk_acteurs_participantId foreign key (partici
 
 4.6 BLL : Ajout d'un nouveau film (en utilisant un NamedJdbcTemplate) + test scénario nominal
 
-[OPTIONNEl ITEREATION 5 ]
+[OPTIONNEl ITERATION 5 ]
 
 5.1 Créer un utilisateur de BD spécifique pour filmotheque
 et modifier la configuration de l'accès à la BD en conséquence
+
+5.2 Liste des participants couche DAL
+	Créer un ParticipantRepository
+
+5.3 Liste des participants couche BLL
+	Créer un ParticipantService
+
+5.4 findParticipantById couche DAL
+	Créer un ParticipantRepository
+
+5.5 findParticipantById couche BLL
+	Créer un ParticipantService
+
+
+ITERATION 6 (Spring Security) :
+----------------------------------------------
+
+6.0 Créér la table Membres sur la BD
+
+CREATE TABLE Membres(    id INT IDENTITY CONSTRAINT PK_Membres PRIMARY KEY,
+                         prenom VARCHAR(50) NOT NULL,
+                         nom VARCHAR(50) NOT NULL,
+                         pseudo VARCHAR(50) NOT NULL UNIQUE,
+                         motDePasse VARCHAR(100) NOT NULL,
+                         admin BIT NOT NULL default 0);
+
+6.1 Configurer Spring Security
+	6.1.1 build.gradle
+	6.1.2 Mise en place d'un "WebSecurityConfig"
+	6.1.3 Mise en place d'un bean personnalisé FilmothequeUserDetailsService
+		(sans accès à la BD dans un premier temps)
+6.2 Accès public à l'accueil
+
+6.3 Accès en mode connecté
+    et aux seuls Administrateurs à l'ajout de film
+	( utilisateurs : logins/mot de passes gérés en BD)
+
+6.4 Gérer la connexion des utilisateurs
+6.4.1 - DAL : MembreRepository
+
+6.4.2 - BLL : MembreService
+
+6.4.3 - Les utilisateurs sont recherchés en BD (mot de passe haché en BD)
+
+6.4 Ajouter un menu pour se connecter ou se déconnecter
+
+
+ITERATION 7 - Finalisation de l'application
+------------------------------------------------
+7.1 Mise en place de la journalisation (Loggers)
+
+7.2 Mise en place d'une vue (create view) pour récupérer la liste des films
+
+7.3 Mise en place d'une procédure stockée pour ajouter un nouveau film
+
+7.4 Utilisation d'un Record pour FilmDto
+
+7.5 Gestion des avis (ihm + bll + dal + securité)
 
 FIN !
 
