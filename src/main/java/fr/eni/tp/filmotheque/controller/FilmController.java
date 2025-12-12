@@ -2,6 +2,7 @@ package fr.eni.tp.filmotheque.controller;
 
 import fr.eni.tp.filmotheque.bll.FilmService;
 import fr.eni.tp.filmotheque.bll.GenreService;
+import fr.eni.tp.filmotheque.bll.ParticipantService;
 import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.bo.Participant;
@@ -28,11 +29,13 @@ public class FilmController {
 
     private FilmService filmService;
     private GenreService genreService;
+    private ParticipantService participantService;
 
-    public FilmController(FilmService filmService, GenreService genreService) {
+    public FilmController(FilmService filmService, GenreService genreService, ParticipantService participantService) {
 
         this.filmService = filmService;
         this.genreService = genreService;
+        this.participantService = participantService;
     }
 
     @GetMapping("/connexion")
@@ -109,12 +112,12 @@ public class FilmController {
         Genre genre = genreService.findGenreById(filmDto.getGenreId());
         //Genre genre = new Genre(filmDto.getGenreId());
         film.setGenre(genre);
-        Participant realisateur = filmService.consulterParticipantParId(filmDto.getRealisateurId());
+        Participant realisateur = participantService.findParticipantById(filmDto.getRealisateurId());
         film.setRealisateur(realisateur);
         Participant acteur=null;
         List<Participant> acteurs= new ArrayList<Participant>();
-        for(long idActeur: filmDto.getActeursIds()){
-             acteurs.add(filmService.consulterParticipantParId(idActeur));
+        for(int idActeur: filmDto.getActeursIds()){
+             acteurs.add(participantService.findParticipantById(idActeur));
         }
         film.setActeurs(acteurs);
 

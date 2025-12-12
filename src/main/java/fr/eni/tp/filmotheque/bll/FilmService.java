@@ -12,11 +12,6 @@ public interface FilmService {
     Film consulterFilmParId(Integer id);
 
 
-    List<Participant> consulterParticipants();
-
-
-    Participant consulterParticipantParId(long id);
-
     void creerFilm(Film film);
 
 }

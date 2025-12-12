@@ -9,7 +9,7 @@ public interface GenreRepository {
 
     List<Genre> findAllGenres();
 
-    Genre findGenreById(int id);
+    Genre findGenreById(Integer id);
 
     /* ajout ou modification d'un genre */
     void save(Genre genre);

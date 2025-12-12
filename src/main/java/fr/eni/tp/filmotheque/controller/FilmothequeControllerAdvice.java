@@ -10,6 +10,7 @@ public class FilmothequeControllerAdvice {
 
     @ExceptionHandler(value=RuntimeException.class)
     public String handleError(HttpServletRequest req, Exception e) throws Exception {
+        e.printStackTrace();
         return "view-error";
     }
 

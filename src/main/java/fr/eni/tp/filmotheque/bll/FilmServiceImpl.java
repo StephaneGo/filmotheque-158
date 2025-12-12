@@ -32,15 +32,7 @@ public class FilmServiceImpl implements FilmService {
         return filmRepository.findFilmById(id);
     }
 
-    @Override
-    public List<Participant> consulterParticipants() {
-        return List.of();
-    }
 
-    @Override
-    public Participant consulterParticipantParId(long id) {
-        return null;
-    }
 
     @Override
     @Transactional

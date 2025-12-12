@@ -7,6 +7,7 @@ import java.util.List;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.exception.GenreNotFoundException;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,22 +31,22 @@ public class GenreRepositoryImpl implements GenreRepository {
 
 	@Override
 	public List<Genre> findAllGenres() {
-		String sql = "select id, libelle from genres";
+		String sql = "select id, libelle as titre from genres";
 
 		List<Genre> genres = jdbcTemplate.query(sql, new GenreRowMapper());
 		return genres;
 	}
 
 	@Override
-	public Genre findGenreById(int id) {
+	public Genre findGenreById(Integer id) {
 
 		String sql = "select id, libelle as titre  from genres where id = ?";
 
         Genre genre = null;
 		
 		try {
-			//genre = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Genre.class), id);
-            genre = jdbcTemplate.queryForObject(sql, new GenreRowMapper(), id);
+			genre = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Genre.class), id);
+            //genre = jdbcTemplate.queryForObject(sql, new GenreRowMapper(), id);
 		}catch(EmptyResultDataAccessException exc) {
 			throw new GenreNotFoundException(id);
 		}
@@ -58,7 +59,8 @@ public class GenreRepositoryImpl implements GenreRepository {
 
 		@Override
 		public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new Genre(rs.getInt("id"), rs.getString("libelle"));
+            Genre g = new Genre(rs.getInt("id"), rs.getString("titre"));
+			return g;
 
 		}
 
