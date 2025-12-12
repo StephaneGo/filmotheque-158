@@ -24,13 +24,19 @@ public class WebSecurityConfig {
                         .requestMatchers( "/films/creer").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                //.formLogin(Customizer.withDefaults())
-                //.logout((logout) -> logout.permitAll());
-                .formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/accueil", true))
-                .logout((logout) -> logout.clearAuthentication(true).invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                        .logoutSuccessUrl("/accueil"))
-                        ;
+                .formLogin(Customizer.withDefaults())
+                .logout((logout) -> logout.permitAll());
+                /*
+                .formLogin((form) -> form.loginPage("/connexion")
+                        .defaultSuccessUrl("/accueil", true)
+                        .permitAll()
+                )
+                .logout((logout) -> logout
+                            .clearAuthentication(true)
+                            .invalidateHttpSession(true)
+                            .deleteCookies("JSESSIONID")
+                            .logoutSuccessUrl("/accueil")
+                        .permitAll());*/
 
 
         return http.build();

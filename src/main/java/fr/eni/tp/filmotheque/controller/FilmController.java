@@ -35,7 +35,7 @@ public class FilmController {
         this.genreService = genreService;
     }
 
-    @GetMapping("/login")
+    @GetMapping("/connexion")
     public String login(Model modele) {
 
         return "connexion";    }
